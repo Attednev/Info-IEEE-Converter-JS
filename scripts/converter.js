@@ -1,5 +1,5 @@
 
-function getHexadecimalRepresentation(binString) {
+function ieeeToHex(binString) {
     let binArray = Array.from(binString).map(Number);
     let hexSet = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F'];
     let hexString = "";
@@ -19,7 +19,7 @@ function binaryArrayToNum(arr) {
     return num;
 }
 
-function convert(num) {
+function numToIEEE(num) {
     let wholeNumber = Math.floor(Math.abs(num));
     let decimalNumber = Math.abs(num) - wholeNumber;
     let wholeBinaryNumber = numToBinary(wholeNumber);
@@ -38,6 +38,15 @@ function convert(num) {
     mantissa = mantissa.concat(new Array(23 - mantissa.length).fill(0));
 
     return ([signBit].concat(exponentBinary).concat(mantissa)).join().replaceAll(",", "");
+}
+
+function convert() {
+    let num = document.getElementById("userInput").value;
+    let ieee = numToIEEE(num);
+    let hex = ieeeToHex(ieee);
+    document.getElementById("floatIEEE").innerHTML = ieee;
+    document.getElementById("floatHex").innerHTML = hex;
+
 }
 
 function numToBinary(num) {
