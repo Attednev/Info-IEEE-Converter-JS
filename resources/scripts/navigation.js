@@ -1,8 +1,0 @@
-
-function pageAbout() {
-
-}
-
-function pageConverter() {
-
-}

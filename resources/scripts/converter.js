@@ -1,9 +1,8 @@
-
 function ieeeToHex(binString) {
     let binArray = Array.from(binString).map(Number);
     let hexSet = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F'];
     let hexString = "";
-    for (let i = binArray.length; i > 0; i-= 4) {
+    for (let i = binArray.length; i > 0; i -= 4) {
         let tmpArr = binArray.slice(i - 4, i);
         let index = binaryArrayToNum(tmpArr);
         hexString = hexSet[index] + hexString;

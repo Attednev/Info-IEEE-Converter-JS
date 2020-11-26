@@ -11,45 +11,31 @@
     <script src="resources/css/bootstrap/bootstrap.esm.js"></script>
     <script src="resources/css/bootstrap/bootstrap.js"></script>
     <script src="resources/scripts/converter.js"></script>
-    <script src="resources/scripts/navigation.js"></script>
     <script>
-        $(document).ready( function() {
+        $(document).ready(function () {
             $("#about").load("resources/sites/aboutPage.html");
             $("#converter").load("resources/sites/converterPage.html");
         });
     </script>
 </head>
 <body>
-    <div class="bg-dark window-height">
-        <ul class="nav nav-pills mb-3 bg-dark nav-border flex-row-reverse" id="pills-tab" role="tablist">
-            <li class="nav-item navbar-brand" role="presentation">
-                <a class="nav-link text-light" id="about-tab" data-toggle="pill" href="#about"
-                   role="tab" aria-controls="about" aria-selected="false">About</a>
-            </li>
-            <li class="nav-item navbar-brand" role="presentation">
-                <a class="nav-link active text-light" id="converter-tab" data-toggle="pill" href="#converter"
-                   role="tab" aria-controls="pills-home" aria-selected="true">Converter</a>
-            </li>
-        </ul>
-
-        <div class="tab-content container" id="pills-tabContent">
-            <div class="tab-pane fade show active" id="converter" role="tabpanel"
-                 aria-labelledby="converter-tab"></div>
-            <div class="tab-pane fade" id="about" role="tabpanel"
-                 aria-labelledby="about-tab"></div>
-        </div>
-
-
-        <!--div class="content">
-            <h1>Converter</h1>
-            <label for="userInput">
-                Decimal Number:
-                <input type="number" id="userInput">
-                <button onclick="convert()">Convert</button>
-            </label>
-            <h4>Float: </h4><p id="floatIEEE"></p>
-            <h4>Hex: </h4><p id="floatHex"></p>
-        </div-->
+<div class="bg-dark window-height">
+    <ul class="nav nav-pills mb-3 bg-dark nav-border flex-row-reverse" id="pills-tab" role="tablist">
+        <li class="nav-item navbar-brand" role="presentation">
+            <a class="nav-link text-light" id="about-tab" data-toggle="pill" href="#about"
+               role="tab" aria-controls="about" aria-selected="false">About</a>
+        </li>
+        <li class="nav-item navbar-brand" role="presentation">
+            <a class="nav-link active text-light" id="converter-tab" data-toggle="pill" href="#converter"
+               role="tab" aria-controls="pills-home" aria-selected="true">Converter</a>
+        </li>
+    </ul>
+    <div class="tab-content container" id="pills-tabContent">
+        <div class="tab-pane fade show active" id="converter" role="tabpanel"
+             aria-labelledby="converter-tab"></div>
+        <div class="tab-pane fade" id="about" role="tabpanel"
+             aria-labelledby="about-tab"></div>
     </div>
+</div>
 </body>
 </html>
