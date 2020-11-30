@@ -46,3 +46,12 @@ td button {
     border-radius: 0.3rem;
     min-width: fit-content;
 }
+
+.left-1vw {
+    margin-left: 1vw;
+}
+
+
+.p-left-1vw {
+    padding-left: 1vw;
+}
