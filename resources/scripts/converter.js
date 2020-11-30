@@ -1,43 +1,3 @@
-function ieeeToHex(binString) {
-    let binArray = Array.from(binString).map(Number);
-    let hexSet = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F'];
-    let hexString = "";
-    for (let i = binArray.length; i > 0; i -= 4) {
-        let tmpArr = binArray.slice(i - 4, i);
-        let index = binaryArrayToNum(tmpArr);
-        hexString = hexSet[index] + hexString;
-    }
-    return "0x" + hexString;
-}
-
-function binaryArrayToNum(arr) {
-    let num = 0;
-    for (let i = arr.length - 1, exp = 0; i >= 0; i--, exp++) {
-        num += arr[i] * (1 << exp);
-    }
-    return num;
-}
-
-function numToIEEE(num) {
-    let wholeNumber = Math.floor(Math.abs(num));
-    let decimalNumber = Math.abs(num) - wholeNumber;
-    let wholeBinaryNumber = numToBinary(wholeNumber);
-    let decimalBinaryNumber = decimalToBinary(decimalNumber);
-
-    let mantissa = wholeBinaryNumber.slice(1).concat(decimalBinaryNumber);
-    //let hidden = numberArray[0];
-
-    let exponentWholeNumber = mantissa.length - decimalBinaryNumber.length;
-    let biasWholeNumber = (1 << exponentWholeNumber - 1) - 1;
-    let biasedExponent = exponentWholeNumber + biasWholeNumber;
-
-    let exponentBinary = numToBinary(biasedExponent);
-    let signBit = (num < 0 ? 1 : 0);
-    exponentBinary = new Array(8 - exponentBinary.length).fill(0).concat(exponentBinary);
-    mantissa = mantissa.concat(new Array(23 - mantissa.length).fill(0));
-
-    return ([signBit].concat(exponentBinary).concat(mantissa)).join().replaceAll(",", "");
-}
 
 function convert() {
     let num = document.getElementById("userInput").value;
@@ -45,22 +5,53 @@ function convert() {
     let hex = ieeeToHex(ieee);
     document.getElementById("floatIEEE").innerHTML = ieee;
     document.getElementById("floatHex").innerHTML = hex;
-
 }
 
-function numToBinary(num) {
-    let arr = [];
-    do {
-        arr.push(num % 2);
-    } while ((num = Math.floor(num / 2)) !== 0);
-    return arr.reverse();
+function ieeeToHex(binString) {
+    let hexSet = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F'];
+    let hexString = "";
+    for (let i = 0; i < binString.length - 1; i += 4) {
+        let index = binaryStringToNum(binString.substr(i, 4));
+        hexString += hexSet[index];
+    }
+    return "0x" + hexString;
 }
 
-function decimalToBinary(num) {
-    let arr = [];
-    do {
-        arr.push(Math.floor(num * 2));
-    } while ((num = (num * 2) % 1) !== 0 && arr.length <= 16);
-    return arr;
+function numToIEEE(num) {
+    let wholeNumber = Math.floor(Math.abs(num));
+    let fraction = Math.abs(num) - wholeNumber;
+    let binaryNumber = numToBinaryString(wholeNumber);
+    let binaryFraction = fractionToBinaryString(fraction);
+
+    let sig = num < 0 ? 1 : 0;
+    let man = binaryNumber.substr(1).concat(binaryFraction).padEnd(23, "0");
+    let exp = numToBinaryString(127 + (binaryNumber.length - 1));
+
+    return (sig + exp + man);
 }
+
+function numToBinaryString(num) {
+    let n = "";
+    for (let i = num; i !== 0; i = Math.floor(i / 2)) {
+        n = (i % 2) + n;
+    }
+    return n;
+}
+
+function fractionToBinaryString(num) {
+    let n = "";
+    for (let i = num; i !== 0 && n.length <= 16; i = (i * 2) % 1) {
+        n += Math.floor(i * 2);
+    }
+    return n;
+}
+
+function binaryStringToNum(str) {
+    let num = 0;
+    for (let i = str.length - 1, exp = 0; i >= 0; i--, exp++) {
+        num += str.charAt(i) * (1 << exp);
+    }
+    return num;
+}
+
 
