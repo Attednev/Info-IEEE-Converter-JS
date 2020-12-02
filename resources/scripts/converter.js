@@ -1,10 +1,42 @@
 
+function reverse() {
+    let binaryString = "";
+    let buttons = document.getElementsByClassName("box");
+    for (let i = 0; i < buttons.length; i++) {
+        binaryString += (buttons.item(i).classList.contains("filled") ? "1" : "0");
+        if (i === 0 || i === 8) {
+            binaryString += " ";
+        }
+    }
+    document.getElementById("floatIEEE").innerHTML = binaryString;
+    document.getElementById("floatHex").innerHTML = ieeeToHex(binaryString.replaceAll(" ", "")); // TODO CHECK IF THIS IS CORRECT
+    document.getElementById("userInput").value = getNumberFromIee(binaryString);
+}
+
 function convert() {
     let num = document.getElementById("userInput").value;
     let ieee = numToIEEE(num);
-    let hex = ieeeToHex(ieee);
+    document.getElementById("floatHex").innerHTML = ieeeToHex(ieee.replaceAll(" ", ""));
     document.getElementById("floatIEEE").innerHTML = ieee;
-    document.getElementById("floatHex").innerHTML = hex;
+    setButtonValues(ieee.replaceAll(" ", ""));
+}
+
+function getNumberFromIee(binaryString) {
+    let parts = binaryString.split(" ");
+    let shift = binaryStringToNum(parts[1]) - 127;
+    let dec = binaryStringToNum("1" + parts[2].substring(0, shift));
+    return (parts[0] === "0" ? dec : -dec);
+}
+
+function setButtonValues(binString) {
+    let buttons = document.getElementsByClassName("box");
+    for (let i = 0; i < buttons.length; i++) {
+        if (binString.charAt(i) === '1') {
+            buttons.item(i).classList.add("filled");
+        } else {
+            buttons.item(i).classList.remove("filled");
+        }
+    }
 }
 
 function ieeeToHex(binString) {
@@ -24,10 +56,10 @@ function numToIEEE(num) {
     let binaryFraction = fractionToBinaryString(fraction);
 
     let sig = num < 0 ? 1 : 0;
-    let man = binaryNumber.substr(1).concat(binaryFraction).padEnd(23, "0");
-    let exp = numToBinaryString(127 + (binaryNumber.length - 1));
+    let man = binaryNumber.substr(1).concat(binaryFraction).padEnd(23, '0').substring(0, 23);
+    let exp = numToBinaryString(127 + (binaryNumber.length - 1)).padStart(8, '0').substring(0, 8);
 
-    return (sig + exp + man);
+    return (sig + " " + exp + " " + man);
 }
 
 function numToBinaryString(num) {
@@ -53,5 +85,3 @@ function binaryStringToNum(str) {
     }
     return num;
 }
-
-

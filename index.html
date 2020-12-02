@@ -1,3 +1,8 @@
+<!--
+TODO-LIST
+- Make Visual box wrap-able
+- About tab
+-->
 <!DOCTYPE html>
 <html lang="de">
 <head>
@@ -15,19 +20,19 @@
     <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
     <script src="resources/scripts/converter.js"></script>
     <script>
-        $(document).ready(function () {
+        $(document).ready(() => {
             $("#about").load("resources/sites/aboutPage.html");
-            $("#converter").load("resources/sites/converterPage.html");
+            $("#converter").load("resources/sites/converterPage.php");
         });
     </script>
 </head>
 <body>
 <div class="bg-dark window-height">
-    <nav class="navbar navbar-expand-lg flex-row-reverse nav-border navbar-dark">
+    <nav class="navbar navbar-expand-lg flex-row-reverse nav-border navbar-dark d-flex flex-row-reverse">
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarContent">
             <span class="navbar-toggler-icon"></span>
         </button>
-        <div class="collapse navbar-collapse left-1vw" id="navbarContent">
+        <div class="collapse navbar-collapse" id="navbarContent">
             <ul class="nav nav-pills navbar-nav mr-auto" id="pills-tab">
                 <li class="nav-item navbar-brand">
                     <a class="nav-link text-light p-left-1vw" data-toggle="pill" href="#about">About</a>
