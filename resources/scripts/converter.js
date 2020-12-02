@@ -23,9 +23,44 @@ function convert() {
 
 function getNumberFromIee(binaryString) {
     let parts = binaryString.split(" ");
-    let shift = binaryStringToNum(parts[1]) - 127;
-    let dec = binaryStringToNum("1" + parts[2].substring(0, shift));
-    return (parts[0] === "0" ? dec : -dec);
+    let sign = Math.pow(-1, parseInt(parts[0]));
+    let exponentValue = binaryStringToNum(parts[1]);
+    let mantissaValue = binaryStringToNum(parts[2]);
+    let bias = exponentValue - 127;
+
+    // Check for special values
+    if (exponentValue === 0 && mantissaValue === 0) {
+        return 0;
+    }  else if (exponentValue === 0) {
+        return (sign * getDenormalizedNumber(parts[2]));
+    } else if (exponentValue === 255 && mantissaValue === 0) {
+        return Infinity;
+    } else if (exponentValue === 255) {
+        return NaN;
+    }
+    return (sign * getNormalizedNumber(bias, parts[2]));
+
+}
+
+function getNormalizedNumber(bias, mantissa) {
+    let m = 0;
+    for (let i = 0; i < mantissa.length; i++) {
+        if (mantissa.charAt(i) === '1') {
+            m += Math.pow(2, -(i + 1));
+        }
+    }
+
+    return ((1 + m) * Math.pow(2, bias));
+}
+
+function getDenormalizedNumber(mantissa) {
+    let num = 0;
+    for (let i = 0; i < mantissa.length; i++) {
+        if (mantissa.charAt(i) === '1') {
+            num += Math.pow(2, -(127 + i));
+        }
+    }
+    return num;
 }
 
 function setButtonValues(binString) {
@@ -52,12 +87,32 @@ function ieeeToHex(binString) {
 function numToIEEE(num) {
     let wholeNumber = Math.floor(Math.abs(num));
     let fraction = Math.abs(num) - wholeNumber;
-    let binaryNumber = numToBinaryString(wholeNumber);
     let binaryFraction = fractionToBinaryString(fraction);
+    let binaryNumber = numToBinaryString(wholeNumber);
+    let bias = 127;
+
+    if (wholeNumber === 0) {
+        for (let i = 0; i < binaryFraction.length; i++) {
+            if (binaryFraction.charAt(i) === '1') {
+                binaryFraction = binaryFraction.substring(i + 1);
+                bias -= (i + 1);
+                break;
+            }
+        }
+    } else {
+        for (let i = 0; i < binaryNumber.length ; i++) {
+            if (binaryNumber.charAt(i) === '1') {
+                binaryFraction = binaryNumber.substring(i + 1) + binaryFraction;
+                bias += binaryNumber.length - i - 1;
+                break;
+            }
+        }
+    }
+
 
     let sig = num < 0 ? 1 : 0;
-    let man = binaryNumber.substr(1).concat(binaryFraction).padEnd(23, '0').substring(0, 23);
-    let exp = numToBinaryString(127 + (binaryNumber.length - 1)).padStart(8, '0').substring(0, 8);
+    let man = binaryFraction.padEnd(23, '0').substring(0, 23);
+    let exp = numToBinaryString(bias).padStart(8, '0').substring(0, 8);
 
     return (sig + " " + exp + " " + man);
 }
@@ -72,7 +127,7 @@ function numToBinaryString(num) {
 
 function fractionToBinaryString(num) {
     let n = "";
-    for (let i = num; i !== 0 && n.length <= 16; i = (i * 2) % 1) {
+    for (let i = num; i !== 0 && n.length <= 32; i = (i * 2) % 1) {
         n += Math.floor(i * 2);
     }
     return n;
