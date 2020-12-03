@@ -2,7 +2,7 @@
     <tr>
         <td class="caption">Decimal number</td>
         <td class="inputDiv">
-            <input id="userInput" type="number" placeholder="Enter your number">
+            <input id="userInput" type="text" placeholder="Enter your number">
             <button onclick="convert()">Start</button>
         </td>
     </tr>
@@ -15,21 +15,39 @@
         <td id="floatHex"></td>
     </tr>
 </table>
-<div class="container d-flex flex-row justify-content-center align-content-center">
-    <?php
-    $names = ["Sign", "Exponent", "Mantissa"];
-    $numberBoxes = [1, 8, 23];
-    $html = "";
-    for ($i = 0; $i < 3; $i++) {
-        $class = 'text-light boxContainer' . ($i == 1 ? ' borderLeftNone borderRightNone' : '');
-        $html .= "<div class='" . $class . "'> <div>" . $names[$i] . "</div> <div class='d-flex'>";
-        for ($j = 0; $j < $numberBoxes[$i]; $j++) {
-            $html .= "<div class='box'></div>";
-        }
-        $html .= "</div></div>";
-    }
-    echo $html;
-    ?>
+
+<div class="d-flex justify-content-center align-content-center flex-wrap">
+    <div class='text-light boxContainer'>
+        <div>Sign</div>
+        <div class="visualDecimalBox">0</div>
+        <div class='box'></div>
+    </div>
+    <div class='text-light boxContainer'>
+        <div>Exponent</div>
+        <div class="visualDecimalBox">0</div>
+        <div class='d-flex'>
+            <?php
+            $html = "";
+            for ($j = 0; $j < 8; $j++) {
+                $html .= "<div class='box'></div>";
+            }
+            echo $html;
+            ?>
+        </div>
+    </div>
+    <div class='text-light boxContainer'>
+        <div>Mantissa</div>
+        <div class="visualDecimalBox">0</div>
+        <div class='d-flex'>
+            <?php
+            $html = "";
+            for ($j = 0; $j < 23; $j++) {
+                $html .= "<div class='box'></div>";
+            }
+            echo $html;
+            ?>
+        </div>
+    </div>
     <script>
         $(".box").on("click", (e) => {
             $(e.target).toggleClass("filled");

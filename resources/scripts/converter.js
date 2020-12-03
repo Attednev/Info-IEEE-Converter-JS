@@ -1,12 +1,23 @@
 function convert() {
     let num = document.getElementById("userInput").value;
-    let ieee = numToIEEE(num); // TODO Weird stuff
-    console.log(num + " -> " + ieee);
-    setValues(ieee)
-    setButtonStates(ieee.replaceAll(" ", ""));
+    const regex = /(-|\+)?((Infinity)|(NaN)|(\d+)(\.\d+)?(e(-|\+)?\d+(\.\d+)?)?)/;
+    if (regex.test(num)) {
+        let ieee = numToIEEE(parseFloat(num));
+        setValues(ieee)
+        setButtonStates(ieee.replaceAll(" ", ""));
+    } else {
+        alert("Not a valid number");
+    }
 }
 
 function numToIEEE(num) {
+    if (num === 0) {
+        return "0 00000000 00000000000000000000000";
+    } else if (num === Infinity) {
+        return "0 11111111 00000000000000000000000";
+    } else if (isNaN(num)) {
+        return "0 11111111 11111111111111111111111";
+    }
     let binaryNum = num.toString(2).split(".");
     let number = binaryNum[0];
     let fraction = (binaryNum.length > 1 ? binaryNum[1] : "0");
@@ -34,6 +45,11 @@ function shiftDecimalPoint(number, fraction, mode) {
 function setValues(value) {
     document.getElementById("floatIEEE").innerHTML = value;
     document.getElementById("floatHex").innerHTML = ieeeToHex(value.replaceAll(" ", ""));
+    let parts = value.split(" ");
+    let decs = $(".visualDecimalBox");
+    for (let i = 0; i < decs.length; i++) {
+        decs[i].innerHTML = parseInt(parts[i], 2);
+    }
 }
 
 
@@ -62,31 +78,21 @@ function ieeeToNum(binaryString) {
     if (exponentValue === 0 && mantissaValue === 0) {
         return 0;
     }  else if (exponentValue === 0) {
-        return (sign * getDenormalizedNumber(parts[2]));
+        return (sign * transformNumber(127, parts[2]));
     } else if (exponentValue === 255 && mantissaValue === 0) {
         return Infinity;
     } else if (exponentValue === 255) {
-        return NaN;
+        return "NaN";
     }
-    return (sign * getNormalizedNumber(bias, parts[2]));
+    return (sign * (1 + transformNumber(1, parts[2])) * Math.pow(2, bias));
 
 }
 
-function getNormalizedNumber(bias, mantissa) {
-    let m = 0;
-    for (let i = 0; i < mantissa.length; i++) {
-        if (mantissa.charAt(i) === '1') {
-            m += Math.pow(2, -(i + 1));
-        }
-    }
-    return ((1 + m) * Math.pow(2, bias));
-}
-
-function getDenormalizedNumber(mantissa) {
+function transformNumber(biasedExponent, mantissa) {
     let num = 0;
     for (let i = 0; i < mantissa.length; i++) {
         if (mantissa.charAt(i) === '1') {
-            num += Math.pow(2, -(127 + i));
+            num += Math.pow(2, -(biasedExponent + i));
         }
     }
     return num;
