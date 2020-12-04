@@ -52,8 +52,6 @@ function setValues(value) {
     }
 }
 
-
-
 function reverse() {
     let binaryString = "";
     let buttons = document.getElementsByClassName("box");
@@ -112,7 +110,7 @@ function setButtonStates(binString) {
 function ieeeToHex(binString) {
     let hexSet = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F'];
     let hexString = "";
-    for (let i = 0; i < binString.length - 1; i += 4) {
+    for (let i = 0; i < binString.length; i += 4) {
         let index = parseInt(binString.substr(i, 4), 2);
         hexString += hexSet[index];
     }
