@@ -1,13 +1,7 @@
 function convert() {
     let num = document.getElementById("userInput").value;
     const regex = /(-|\+)?((Infinity)|(NaN)|(\d+)(\.\d+)?(e(-|\+)?\d+(\.\d+)?)?)/;
-    if (regex.test(num)) {
-        let ieee = numToIEEE(parseFloat(num));
-        setValues(ieee)
-        setButtonStates(ieee.replaceAll(" ", ""));
-    } else {
-        alert("Not a valid number");
-    }
+    return (regex.test(num) ? numToIEEE(parseFloat(num)) : undefined);
 }
 
 function numToIEEE(num) {
@@ -42,16 +36,6 @@ function shiftDecimalPoint(number, fraction, mode) {
     return [fraction, 127];
 }
 
-function setValues(value) {
-    document.getElementById("floatIEEE").innerHTML = value;
-    document.getElementById("floatHex").innerHTML = ieeeToHex(value.replaceAll(" ", ""));
-    let parts = value.split(" ");
-    let decs = $(".visualDecimalBox");
-    for (let i = 0; i < decs.length; i++) {
-        decs[i].innerHTML = parseInt(parts[i], 2);
-    }
-}
-
 function reverse() {
     let binaryString = "";
     let buttons = document.getElementsByClassName("box");
@@ -61,8 +45,7 @@ function reverse() {
             binaryString += " ";
         }
     }
-    setValues(binaryString);
-    document.getElementById("userInput").value = ieeeToNum(binaryString);
+    return binaryString;
 }
 
 function ieeeToNum(binaryString) {
@@ -94,17 +77,6 @@ function transformNumber(biasedExponent, mantissa) {
         }
     }
     return num;
-}
-
-function setButtonStates(binString) {
-    let buttons = document.getElementsByClassName("box");
-    for (let i = 0; i < buttons.length; i++) {
-        if (binString.charAt(i) === '1') {
-            buttons.item(i).classList.add("filled");
-        } else {
-            buttons.item(i).classList.remove("filled");
-        }
-    }
 }
 
 function ieeeToHex(binString) {
