@@ -3,7 +3,7 @@
         <td class="caption">Decimal number</td>
         <td class="inputDiv">
             <input id="userInput" type="text" placeholder="Enter your number">
-            <button onclick="convert()">Start</button>
+            <button onclick="showConversionResult()">Start</button>
         </td>
     </tr>
     <tr>
@@ -51,7 +51,7 @@
     <script>
         $(".box").on("click", (e) => {
             $(e.target).toggleClass("filled");
-            reverse();
+            showReverseResult();
         });
     </script>
 </div>
