@@ -1,0 +1,11 @@
+<link rel="stylesheet" href="../css/styles.css">
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+<p>
+    The IEEE-754 stores the floating point numbers as scientific notation. To do so we split the 32 or 64 bits into three parts, the <b>Sign-Bit</b>, the <b>Exponent-Bits</b> and the <b>Mantissa-Bits</b>. <br><br><br>
+    The Sign-Bit store whether the number is negative or positive. Positive numbers are stored as \( 0 \) , negative ones as \( 1 \) . <br><br>
+    The Exponent-Bits are used to store a value that is used as exponent of the base (in IEEE-754 standardized as \( 2 \) due to the binary format). The exponent in this state is "unbiased". To bias the exponent we subtract \( 127 \) in 32-bit conversion and \( 1023 \) for 64-bit conversion. We bias the exponent to represent very small numbers (e.g. \( E-10 \) ) <br><br>
+    The Mantissa-Bits stores a value that is later multiplied to the \( 2^{exponent - bias} \) expression to receive the actual decimal number. <br><br><br>
+
+    With this knowledge we can say, that the IEEE-754 standard stores the values in a binary scientific notation, which means that we don't multiply a number with \( 10^{something} \) but with \( 2^{something} \).
+</p>

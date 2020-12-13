@@ -1,0 +1,9 @@
+<link rel="stylesheet" href="../css/styles.css">
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+<p>
+    \( Infinity \): To store Infinity we have to fill the exponent bits with \( 1 \) 's and the mantissa bits with \( 0 \) 's. <br><br>
+    \( NaN \): To store NaN we fill the exponent bits with \( 1 \) 's but store the mantissa as a non \( 0 \) value. <br><br>
+    \( Denormalized \): This means that we don't have a leading \( 1 \) int the original mantissa which means that we have a value \( < 1 \) and \( > (-1) \). For this we set the exponent to 0 and the mantissa to a non \( 0 \) value. <br><br>
+    \( 0 \): For zero we set both mantissa and exponent to \( 0 \) .
+</p>

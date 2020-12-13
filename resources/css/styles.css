@@ -82,3 +82,14 @@ td button {
     font-size: 25px;
 }
 
+embed {
+    width: 100%;
+    flex-direction: column;
+    min-height: auto;
+}
+
+p {
+    color: white;
+    font-family: Monospaced, sans-serif;
+}
+
