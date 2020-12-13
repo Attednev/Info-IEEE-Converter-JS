@@ -1,35 +1,36 @@
-<link rel="stylesheet" href="../css/styles.css">
-<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
-<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-<div>
-    <p>
-        To convert a floating point number into IEEE-754 representation we have to do the following: <br>
-        <b>Example with \( 2.25 \) </b> <br><br>
+To convert a floating point number into IEEE-754 representation we have to do the following: <br>
+<b>Example with \(2.25\)</b>
 
-        <b>Step 1: Convert the full decimal into binary</b> <br>
-        First we convert your full decimal number, in your case \( 2 \) into binary. The binary representation of \( 2 \) is \( 10 \) . <br><br>
+<dl>
+    <dt>Step 1: Convert the full decimal into binary</dt>
+    <dd>First we convert your full decimal number, in your case \(2\) into binary. The binary representation of \(2\) is \(10\)</dd>
 
-        <b>Step 2: Convert the fraction into binary</b> <br>
-        Now we convert the fraction into binary, for the number \( 0.25 \) the result is \( 01 \) <br><br>
+    <dt>Step 2: Convert the fraction into binary</dt>
+    <dd>Now we convert the fraction into binary, for the number \(0.25\) the result is \(01\)</dd>
 
-        <b>Step 3: Shift the mantissa and get the bias</b> <br>
-        \( 2.25 \) as binary is \( 10.01 \). <br>
-        What we have to do now is shift the decimal point so that we the leading number is \( 1 \) . If the full decimal number is \( 0 \) , we have to shift the fraction to the left, else we shift the full decimal to hte right. <br>
-        Once we do this, we have to note how many times we shifted the decimal point into one direction. If we shift it to the right, this number becomes negative. This number represents the unbiased exponent value. To bias this number, we have to add \( 127 \) for 32-bit and \( 1023 \) for 64-bit to this number. <br>
-        In your case, the full decimal is not \( 0 \) , so we have to shift to the left. To get a leading \( 1 \) , we have to shift \( 1 \) time. <br>
-        The result is \( 1.001 \) with a bias of \( 1 + 127 = 128 \) <br><br>
+    <dt>Step 3: Shift the mantissa and get the bias</dt>
+    <dd>
+        \(2.25\) as binary is \(10.01\). <br>
+        What we have to do now is shift the decimal point so that we the leading number is \(1\). If the full decimal number is \(0\), we have to shift the fraction to the left, else we shift the full decimal to hte right. <br>
+        Once we do this, we have to note how many times we shifted the decimal point into one direction. If we shift it to the right, this number becomes negative. This number represents the unbiased exponent value. To bias this number, we have to add \(127\) for 32-bit and \(1023\) for 64-bit to this number. <br>
+        In your case, the full decimal is not \(0\), so we have to shift to the left. To get a leading \(1\), we have to shift \(1\) time. <br>
+        The result is \(1.001\) with a bias of \(1 + 127 = 128\)
+    </dd>
 
-        <b>Step 4: Fill up the values and calculate the result</b> <br>
-        Here we first check if your number is positive or negative. If the number is positive, our Sign-Bit is \( 0 \) , else it is \( 1 \) . <br>
-        For the exponent, we convert our bias into binary and add that many \( 0 \) 's at the start, so we get a binary number of length \( 8 \) for 32-bit and \( 11 \) for 64-bit. <br>
-        For the mantissa we take the fraction of the shifted number and add \( 0 \) 's at the end, so we receive a binary string of length of \( 23 \) for 32-bit and \( 52 \) for 64-bit. <br>
+    <dt>Step 4: Fill up the values and calculate the result</dt>
+    <dd>
+        Here we first check if your number is positive or negative. If the number is positive, our Sign-Bit is \(0\), else it is \(1\). <br>
+        For the exponent, we convert our bias into binary and add that many \(0\)'s at the start, so we get a binary number of length \(8\) for 32-bit and \(11\) for 64-bit. <br>
+        For the mantissa we take the fraction of the shifted number and add \(0\)'s at the end, so we receive a binary string of length of \(23\) for 32-bit and \(52\) for 64-bit. <br>
         For this example this means that: <br>
-        <span style="margin-left:2em">\( 2.25 \) is positive, so the Sign-Bit is \( 1 \)</span> <br>
-        <span style="margin-left:2em">The bias \( 128 \) gets converted to \( 1000 0000 \)</span> <br>
-        <span style="margin-left:2em">The mantissa we have \( .001 \) which gets formatted to \( 0010 0000 0000 0000 0000 000 \)</span> <br><br>
+        \(2.25\) is positive, so the Sign-Bit is \(1\)<br>
+        The bias \(128\) gets converted to \(1000 0000\) <br>
+        The mantissa we have \(.001\) which gets formatted to \(0010 0000 0000 0000 0000 000\)
+    </dd>
 
-        <b>Step 5: Result</b> <br>
+    <dt>Step 5: Result</dt>
+    <dd>
         The result is a String which consists of the three parts: Sign - Exponent - Mantissa. <br>
-        In our case that means: \( 1 | 1000 000 | 0010 0000 0000 0000 0000 000 \) .
-    </p>
-</div>
+        In our case that means: \(1 | 1000 000 | 0010 0000 0000 0000 0000 000\).
+    </dd>
+</dl>

@@ -1,38 +1,42 @@
-<link rel="stylesheet" href="../css/styles.css">
-<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
-<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-<p">
+<p>
     To convert a number from IEEE-754 standard to it's decimal counterpart we have to use different calculations on
     each of the three parts (sign, exponent and mantissa). <br>
     <b>Example with \( 0 | 1000 0000 | 0100 0000 0000 0000 0000 000 \)</b> <br><br>
-
-    <b>Step 1: Sign-Bit</b> <br>
-    Your sign bit is \( 0 \). The calculation we have to apply is \( (-1)^{sign} \). For this example this means we
-    have
-    \( (-1)^0 \) which is \( 1 \). <br><br>
-
-    <b>Step 2: Exponent-Bits</b> <br>
-    To calculate the biased exponent we have to convert the binary number to decimal first. In this example we have
-    the binary value \( 1000 0000 \) which is \( 128 \) in decimal. <br>
-    Now we apply the bias, which for 32-bit is \( 127 \). So we subtract \( 127 \) form \( 128 \) which results in
-    \( 1 \). <br><br>
-
-    <b>Step 3: Mantissa-Bits</b> <br>
-    For the mantissa, we go through each bit of the mantissa and multiply either the \( 0 \) or the \( 1 \) with
-    \( 2^{-E} \) and add this to the result. <br>
-    Now it get interesting, as there are two options here. If the exponent is \( 0 \), E starts at \( 127 \) and add
-    the
-    index of the current bit (starting at \( 0 \) ). If the exponent is a non-zero value, we start at \( 1 \) and do
-    the
-    same, still starting at \( 0 \) . At the end - if we have a non-zero exponent - we add \( 1 \) to the result. <br>
-    In your example we only have a non-zero exponent and a \( 1 \) in slot \( 2 \) which means we have a Mantissa of
-    \( 2^{-(1 + 1)} + 1 \). <br><br>
-
-    <b>Step 4: Calculate the result</b> <br>
-    To finally get the decimal number, we multiply all your numbers together. <br>
-    \( (-1)^0 * 2^{128 - 127} * (2^{-(1 + 1)} + 1) = \) <br>
-    \( 1 * 2^1 * (2^{-2} + 1) = \) <br>
-    \( 2 * (0.25 + 1) = \) <br>
-    \( 2 * 1.25 = \) <br>
-    \( 2.25 \)
 </p>
+<dl>
+    <dt>Step 1: Sign-Bit</dt>
+    <dd>
+        Your sign bit is \( 0 \). The calculation we have to apply is \( (-1)^{sign} \). For this example this means we
+        have
+        \( (-1)^0 \) which is \( 1 \).
+    </dd>
+
+    <dt>Step 2: Exponent-Bits</dt>
+    <dd>
+        To calculate the biased exponent we have to convert the binary number to decimal first. In this example we have
+        the binary value \( 1000 0000 \) which is \( 128 \) in decimal. <br>
+        Now we apply the bias, which for 32-bit is \( 127 \). So we subtract \( 127 \) form \( 128 \) which results in
+        \( 1 \).
+    </dd>
+
+    <dt>Step 3: Mantissa-Bits</dt>
+    <dd>
+        For the mantissa, we go through each bit of the mantissa and multiply either the \( 0 \) or the \( 1 \) with
+        \( 2^{-E} \) and add this to the result. <br>
+        Now it get interesting, as there are two options here. If the exponent is \( 0 \), E starts at \( 127 \) and add
+        the index of the current bit (starting at \( 0 \) ). If the exponent is a non-zero value, we start at \( 1 \) and do
+        the same, still starting at \( 0 \) . At the end - if we have a non-zero exponent - we add \( 1 \) to the result. <br>
+        In your example we only have a non-zero exponent and a \( 1 \) in slot \( 2 \) which means we have a Mantissa of
+        \( 2^{-(1 + 1)} + 1 \).
+    </dd>
+
+    <dt>Step 4: Calculate the result</dt>
+    <dd>
+        To finally get the decimal number, we multiply all your numbers together. <br>
+        \( (-1)^0 \cdot 2^{128 - 127} \cdot (2^{-(1 + 1)} + 1) = \) <br>
+        \( 1 * 2^1 \cdot (2^{-2} + 1) = \) <br>
+        \( 2 \cdot (0.25 + 1) = \) <br>
+        \( 2 \cdot 1.25 = \) <br>
+        \( 2.25 \)
+    </dd>
+</dl>

@@ -82,14 +82,22 @@ td button {
     font-size: 25px;
 }
 
-embed {
-    width: 100%;
-    flex-direction: column;
-    min-height: auto;
+.collapseBox {
+    background-color: #2b2b2b;
+    padding: 2vh 3vw;
 }
 
-p {
+dt {
+    font-weight: bold;
+}
+
+dl, dd, #aboutBoxes > * {
+    font-size: .9rem;
     color: white;
-    font-family: Monospaced, sans-serif;
+}
+
+dd {
+    margin-bottom: 1em;
+    margin-left: 2em;
 }
 
