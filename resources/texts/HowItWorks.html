@@ -7,8 +7,8 @@ ones as \(1\). <br><br>
 
 The Exponent-Bits are used to store a value that is used as exponent of the base (in IEEE-754 standardized as \(2\)
 due to the binary format). The exponent in this state is "unbiased". To bias the exponent we subtract \(127\)
-in 32-bit conversion and \(1023\) for 64-bit conversion. We bias the exponent to represent very small numbers
-(e.g. \(E-10\)) <br><br>
+in 32-bit conversion and \(1023\) for 64-bit conversion. By biasing the exponent before it is stored, we put it within
+an unsigned range more suitable for comparison. <br><br>
 
 The Mantissa-Bits stores a value that is later multiplied to the \(2^{exponent - bias}\) expression to receive the
 actual decimal number. <br><br><br>
