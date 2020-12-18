@@ -9,7 +9,9 @@ function numToIEEE(num) {
         return "0 00000000 00000000000000000000000";
     } else if (num === Infinity) {
         return "0 11111111 00000000000000000000000";
-    } else if (isNaN(num)) {
+    } else if (num === -Infinity) {
+        return "1 11111111 00000000000000000000000";
+    }else if (isNaN(num)) {
         return "0 11111111 11111111111111111111111";
     }
     let binaryNum = num.toString(2).split(".");
