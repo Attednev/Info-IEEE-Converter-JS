@@ -1,20 +1,24 @@
-<table class="table table-dark input">
-    <tr>
-        <td class="caption">Decimal number</td>
-        <td class="inputDiv">
-            <input id="userInput" type="text" placeholder="Enter your number">
-            <button onclick="showConversionResult()">Start</button>
-        </td>
-    </tr>
-    <tr>
-        <td class="caption">Binary representation</td>
-        <td id="floatIEEE"></td>
-    </tr>
-    <tr>
-        <td class="caption">Hexadecimal representation</td>
-        <td id="floatHex"></td>
-    </tr>
-</table>
+<div style="width: 100%; background-color: red; align-items: center; justify-content: center; position: relative">
+    <table class="table table-dark input">
+        <tr>
+            <td class="caption">Decimal number</td>
+            <td class="inputDiv">
+                <input id="userInput" type="text" placeholder="Enter your number">
+                <button onclick="showConversionResult()">Start</button>
+            </td>
+        <tr>
+            <td class="caption">Binary representation</td>
+            <td id="floatIEEE"></td>
+        </tr>
+        <tr>
+            <td class="caption">Hexadecimal representation</td>
+            <td id="floatHex"></td>
+        </tr>
+    </table>
+    <div id="errorPopup" class="alert alert-primary" role="alert">
+        Not a valid input. Please enter: a number, "Infinity", "-Infinity" or "NaN
+    </div>
+</div>
 
 <div class="d-flex justify-content-center align-content-center flex-wrap">
     <div class='text-light boxContainer'>

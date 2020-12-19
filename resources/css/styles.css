@@ -101,3 +101,9 @@ dd {
     margin-left: 2em;
 }
 
+#errorPopup {
+    position: absolute;
+    width: 100%;
+    top: 31.5%;
+    opacity: 0;
+}

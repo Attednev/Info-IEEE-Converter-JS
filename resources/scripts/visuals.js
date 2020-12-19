@@ -2,7 +2,9 @@
 function showConversionResult() {
     let num = convert();
     if (num === undefined) {
-        alert("Not a valid number")
+        $("#errorPopup").animate({ opacity: 1 }, 300, "swing", () => {
+            $("#errorPopup").delay(4000).animate({opacity: 0}, 300);
+        });
     } else {
         setVisualValues(num)
         setButtonStates(num.replaceAll(" ", ""));

@@ -11,11 +11,13 @@ To convert a floating point number into IEEE-754 representation we have to do th
     <dt>Step 3: Shift the mantissa and get the bias</dt>
     <dd>
         \(2.25\) as binary is \(10.01\). <br>
-        What we have to do now is shift the decimal point so that we the leading number is \(1\). If the full decimal number is \(0\), we have to shift the fraction to the left, else we shift the full decimal to hte right. <br>
+        What we have to do now is shift the decimal point so that we the leading number is \(1\). If the full decimal number is \(0\), we have to shift the fraction to the left, else we shift the full decimal to the right. <br>
         Once we do this, we have to note how many times we shifted the decimal point into one direction. If we shift it to the right, this number becomes negative. This number represents the unbiased exponent value. To bias this number, we have to add \(127\) for 32-bit and \(1023\) for 64-bit to this number. <br>
         In your case, the full decimal is not \(0\), so we have to shift to the left. To get a leading \(1\), we have to shift \(1\) time. <br>
         The result is \(1.001\) with a bias of \(1 + 127 = 128\) (It can also be represented as \(1.125 \cdot 2^{1}\)) <br>
-            It may not be important for the calculation, but you may wonder where the 1.125 comes from. For this we just divide our base number (\(2.25\)) by \(2^{bias}\). This means we have \(2.25 \over 2^1\) which results in \(1.125\).
+        <dl>
+            <dd>It may not be important for the calculation, but you may wonder where the 1.125 comes from. For this we just divide our base number (\(2.25\)) by \(2^{bias}\). This means we have \(2.25 \over 2^1\) which results in \(1.125\).</dd>
+        </dl>
     </dd>
 
     <dt>Step 4: Fill up the values and calculate the result</dt>
