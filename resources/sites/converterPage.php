@@ -1,4 +1,4 @@
-<div style="width: 100%; background-color: red; align-items: center; justify-content: center; position: relative">
+<div class="position-relative">
     <table class="table table-dark input">
         <tr>
             <td class="caption">Decimal number</td>
