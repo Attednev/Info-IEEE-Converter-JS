@@ -7,7 +7,7 @@
     $id =     ["what",             "why",                         "how",                "sv",                 "nTi",                                              "iTn"];
     for ($i = 0; $i < min(count($files), count($header)); $i++) {
         echo "
-            <button style='background-color: #2b2b2b; font-size: 1.5rem' type='button' class='btn w-100 text-light text-left' data-toggle='collapse' data-target='#" . $id[$i] . "'>" . $header[$i] . "</button>
+            <button style='background-color: #2b2b2b; font-size: 1.5rem; color: #4b93ff' type='button' class='btn w-100 text-left' data-toggle='collapse' data-target='#" . $id[$i] . "'>" . $header[$i] . "</button>
             <div id='" . $id[$i] . "' class='collapse collapseBox'></div>
             <script>$('#" . $id[$i] . "').load('resources/texts/" . $files[$i] . "')</script>
         ";

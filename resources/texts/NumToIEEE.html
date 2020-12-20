@@ -5,8 +5,16 @@ To convert a floating point number into IEEE-754 representation we have to do th
     <dt>Step 1: Convert the full decimal into binary</dt>
     <dd>First we convert your full decimal number, in your case \(2\) into binary. The binary representation of \(2\) is \(10\)</dd>
 
+    <div style="display: flex; justify-content: center; margin-bottom: 5vh">
+        <img src="resources/images/Dec_to_Bin_calculation.png" alt="none" width="70%">
+    </div>
+
     <dt>Step 2: Convert the fraction into binary</dt>
     <dd>Now we convert the fraction into binary, for the number \(0.25\) the result is \(01\)</dd>
+
+    <div style="display: flex; justify-content: center; margin-bottom: 5vh">
+        <img src="resources/images/Frac_to_Bin_calculation.png" alt="none" width="70%">
+    </div>
 
     <dt>Step 3: Shift the mantissa and get the bias</dt>
     <dd>
@@ -19,6 +27,10 @@ To convert a floating point number into IEEE-754 representation we have to do th
             <dd>It may not be important for the calculation, but you may wonder where the 1.125 comes from. For this we just divide our base number (\(2.25\)) by \(2^{bias}\). This means we have \(2.25 \over 2^1\) which results in \(1.125\).</dd>
         </dl>
     </dd>
+
+    <div style="display: flex; justify-content: center; margin-bottom: 5vh">
+        <img src="resources/images/Shift.png" alt="none" width="70%">
+    </div>
 
     <dt>Step 4: Fill up the values and calculate the result</dt>
     <dd>
@@ -34,6 +46,10 @@ To convert a floating point number into IEEE-754 representation we have to do th
     <dt>Step 5: Result</dt>
     <dd>
         The result is a String which consists of the three parts: Sign - Exponent - Mantissa. <br>
-        In our case that means: \(1 | 1000 000 | 0010 0000 0000 0000 0000 000\).
+        In our case that means: \(0 | 1000 000 | 0010 0000 0000 0000 0000 000\).
     </dd>
+
+    <div style="display: flex; justify-content: center; margin-bottom: 5vh">
+        <img src="resources/images/Result.png" alt="none" width="90%">
+    </div>
 </dl>
