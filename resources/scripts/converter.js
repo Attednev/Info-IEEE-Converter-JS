@@ -63,7 +63,7 @@ function ieeeToNum(binaryString) {
     }  else if (exponentValue === 0) {
         return (sign * transformNumber(127, parts[2]));
     } else if (exponentValue === 255 && mantissaValue === 0) {
-        return Infinity;
+        return sign * Infinity;
     } else if (exponentValue === 255) {
         return "NaN";
     }
